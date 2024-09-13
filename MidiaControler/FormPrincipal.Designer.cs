@@ -41,7 +41,6 @@
             comboBoxAvancar = new ComboBox();
             comboBoxVoltar = new ComboBox();
             comboBoxPlayPause = new ComboBox();
-            buttonBandeja = new Button();
             labelTecla1 = new Label();
             labelTecla2 = new Label();
             labelPlayPause = new Label();
@@ -161,17 +160,6 @@
             comboBoxPlayPause.TabIndex = 13;
             comboBoxPlayPause.TabStop = false;
             // 
-            // buttonBandeja
-            // 
-            buttonBandeja.BackColor = SystemColors.ActiveCaption;
-            buttonBandeja.Location = new Point(10, 243);
-            buttonBandeja.Name = "buttonBandeja";
-            buttonBandeja.Size = new Size(230, 31);
-            buttonBandeja.TabIndex = 14;
-            buttonBandeja.Text = "Bandeja";
-            buttonBandeja.UseVisualStyleBackColor = false;
-            buttonBandeja.Click += ButtonFechar_Click;
-            // 
             // labelTecla1
             // 
             labelTecla1.AutoSize = true;
@@ -250,7 +238,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(254, 286);
+            ClientSize = new Size(254, 221);
             Controls.Add(buttonSalvar);
             Controls.Add(labelAvancar);
             Controls.Add(labelVolUp);
@@ -259,7 +247,6 @@
             Controls.Add(labelPlayPause);
             Controls.Add(labelTecla2);
             Controls.Add(labelTecla1);
-            Controls.Add(buttonBandeja);
             Controls.Add(comboBoxPlayPause);
             Controls.Add(comboBoxVoltar);
             Controls.Add(comboBoxAvancar);
@@ -298,7 +285,6 @@
         private Label labelVoltar;
         private Label labelVolUp;
         private Label labelAvancar;
-        private Button buttonBandeja;
         private Button buttonSalvar;
     }
 }

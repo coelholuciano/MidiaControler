@@ -21,12 +21,15 @@ public partial class FormPrincipal : Form
         // registrar a configuração de atalhos no windows
         RegisterGlobalHotKey();
 
-        // remove os botões
+        // remove os botões do form
         this.ControlBox = false;
 
-        // minimiza
+        // já abre minimizado
         this.WindowState = FormWindowState.Minimized;
     }
+
+
+    #region Controles do Form - system tray
 
     private void FormPrincipal_Resize(object sender, EventArgs e)
     {
@@ -34,7 +37,7 @@ public partial class FormPrincipal : Form
         {
             this.Hide();
             notifyIconBandeja.Visible = true;
-            notifyIconBandeja.ShowBalloonTip(1000);
+            notifyIconBandeja.ShowBalloonTip(300);
         }
         else if (FormWindowState.Normal == this.WindowState)
         {
@@ -64,21 +67,56 @@ public partial class FormPrincipal : Form
 
     private void EncerrarToolStripMenuItem_Click(object sender, EventArgs e)
     {
+        // limpa os atalhos do windows
         UnregisterGlobalHotKey();
-        //base.OnFormClosing(e);
 
         // forçar o encerramento da aplicação
         Application.Exit();
         Environment.Exit(1);
     }
 
-    private void ButtonFechar_Click(object sender, EventArgs e)
+    #endregion
+
+
+    #region Salvar as Configurações dos atalhos
+
+    private void ButtonSalvar_Click(object sender, EventArgs e)
     {
+        //abre o arquivo local como leitura/escrita e salva as alterações em ProjetoPastelariaDoZe_2023.dll.config
+        Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+        config.AppSettings.Settings.Remove("TECLA1");
+        config.AppSettings.Settings.Remove("TECLA2");
+        config.AppSettings.Settings.Remove("PLAY");
+        config.AppSettings.Settings.Remove("AVANCAR");
+        config.AppSettings.Settings.Remove("VOLTAR");
+        config.AppSettings.Settings.Remove("UP");
+        config.AppSettings.Settings.Remove("DOWN");
+
+        config.AppSettings.Settings.Add("TECLA1", comboBoxTecla1.Text);
+        config.AppSettings.Settings.Add("TECLA2", comboBoxTecla2.Text);
+        config.AppSettings.Settings.Add("PLAY", comboBoxPlayPause.Text);
+        config.AppSettings.Settings.Add("AVANCAR", comboBoxAvancar.Text);
+        config.AppSettings.Settings.Add("VOLTAR", comboBoxVoltar.Text);
+        config.AppSettings.Settings.Add("UP", comboBoxUp.Text);
+        config.AppSettings.Settings.Add("DOWN", comboBoxDown.Text);
+
+        config.Save(ConfigurationSaveMode.Modified);
+        ConfigurationManager.RefreshSection("appSettings");
+
+        // revogar e registrar os atalhos
+        UnregisterGlobalHotKey();
+        RegisterGlobalHotKey();
+
+        MessageBox.Show("Atalhos atualizados com sucesso!");
+
+        //minimiza a janela
         this.WindowState = FormWindowState.Minimized;
     }
 
+    #endregion
 
-    // atalhos
+
+    #region Atalhos do Windows
 
     private enum MediaKey : byte
     {
@@ -201,42 +239,6 @@ public partial class FormPrincipal : Form
         UnregisterHotKey(this.Handle, 5);
     }
 
-
-    #region Salvar Configurações
-
-    private void ButtonSalvar_Click(object sender, EventArgs e)
-    {
-        //abre o arquivo local como leitura/escrita e salva as alterações em ProjetoPastelariaDoZe_2023.dll.config
-        Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-        config.AppSettings.Settings.Remove("TECLA1");
-        config.AppSettings.Settings.Remove("TECLA2");
-        config.AppSettings.Settings.Remove("PLAY");
-        config.AppSettings.Settings.Remove("AVANCAR");
-        config.AppSettings.Settings.Remove("VOLTAR");
-        config.AppSettings.Settings.Remove("UP");
-        config.AppSettings.Settings.Remove("DOWN");
-
-        config.AppSettings.Settings.Add("TECLA1", comboBoxTecla1.Text);
-        config.AppSettings.Settings.Add("TECLA2", comboBoxTecla2.Text);
-        config.AppSettings.Settings.Add("PLAY", comboBoxPlayPause.Text);
-        config.AppSettings.Settings.Add("AVANCAR", comboBoxAvancar.Text);
-        config.AppSettings.Settings.Add("VOLTAR", comboBoxVoltar.Text);
-        config.AppSettings.Settings.Add("UP", comboBoxUp.Text);
-        config.AppSettings.Settings.Add("DOWN", comboBoxDown.Text);
-
-        config.Save(ConfigurationSaveMode.Modified);
-        ConfigurationManager.RefreshSection("appSettings");
-
-        // revogar e registrar os atalhos
-        UnregisterGlobalHotKey();
-        RegisterGlobalHotKey();
-
-        MessageBox.Show("Dados alterados com sucesso!");
-    }
-
     #endregion
-
-
-
 
 }
