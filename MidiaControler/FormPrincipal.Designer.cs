@@ -55,11 +55,11 @@
             // notifyIconBandeja
             // 
             notifyIconBandeja.BalloonTipIcon = ToolTipIcon.Info;
-            notifyIconBandeja.BalloonTipText = "Aplicação continua executando na bandeja, use os controles para controlar sua mídia.";
-            notifyIconBandeja.BalloonTipTitle = "Controle de Mídia do Zé";
+            notifyIconBandeja.BalloonTipText = "Aplicação executando na bandeja, use os controles para controlar sua mídia.";
+            notifyIconBandeja.BalloonTipTitle = "Uncle Lu - Media Control";
             notifyIconBandeja.ContextMenuStrip = contextMenuStripBandeja;
             notifyIconBandeja.Icon = (Icon)resources.GetObject("notifyIconBandeja.Icon");
-            notifyIconBandeja.Text = "Controle de Mídia do Zé";
+            notifyIconBandeja.Text = "Uncle Lu - Media Control";
             notifyIconBandeja.MouseDoubleClick += NotifyIconBandeja_MouseDoubleClick;
             // 
             // contextMenuStripBandeja
@@ -258,7 +258,7 @@
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "FormPrincipal";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "Controle de Mídia do Zé";
+            Text = "Uncle Lu - Media Control";
             FormClosing += FormPrincipal_FormClosing;
             Resize += FormPrincipal_Resize;
             contextMenuStripBandeja.ResumeLayout(false);
